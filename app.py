@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 from supabase import create_client
 from dotenv import load_dotenv
+from chatbot import ask_llm
 import os
 
 load_dotenv()
@@ -27,6 +28,9 @@ supabase_admin = create_client(
 
 @app.route("/")
 def home():
+    if "user_id" in session:
+        return redirect("/chat")
+
     return redirect("/login")
 
 
@@ -98,8 +102,9 @@ def login():
 
             session["access_token"] = response.session.access_token
             session["user_id"] = response.user.id
+            session["email"] = response.user.email
 
-            return "Login successful"
+            return redirect("/chat")
 
         except Exception as e:
             return f"Error: {str(e)}"
@@ -107,12 +112,45 @@ def login():
     return render_template("login.html")
 
 
+@app.route("/chat", methods=["GET", "POST"])
+def chat():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    answer = ""
+
+    if request.method == "POST":
+
+        user_message = request.form["message"]
+
+        try:
+            answer = ask_llm(user_message)
+
+        except Exception as e:
+            answer = f"Error: {str(e)}"
+
+    return render_template(
+        "chat.html",
+        email=session["email"],
+        answer=answer
+    )
+
+
 @app.route("/logout")
 def logout():
+
     session.clear()
+
     return redirect("/login")
 
 
 if __name__ == "__main__":
+
     port = int(os.getenv("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
+
+    app.run(
+        host="0.0.0.0",
+        port=port,
+        debug=True
+    )
