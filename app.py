@@ -28,10 +28,15 @@ supabase_admin = create_client(
 
 @app.route("/")
 def home():
-    if "user_id" in session:
-        return redirect("/chat")
 
-    return redirect("/login")
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if "email" not in session:
+        session.clear()
+        return redirect("/login")
+
+    return redirect("/chat")
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -132,7 +137,7 @@ def chat():
 
     return render_template(
         "chat.html",
-        email=session["email"],
+        email=session.get("email", ""),
         answer=answer
     )
 
