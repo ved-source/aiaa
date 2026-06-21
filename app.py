@@ -3,7 +3,8 @@ from supabase import create_client
 from dotenv import load_dotenv
 from chatbot import ask_llm
 import os
-
+from memory import save_message,get_chat_history
+from chatbot import ask_llm
 load_dotenv()
 
 app = Flask(__name__)
@@ -117,30 +118,60 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/chat", methods=["GET", "POST"])
+
+
+
+@app.route("/chat", methods=["GET","POST"])
 def chat():
 
     if "user_id" not in session:
+
         return redirect("/login")
 
-    answer = ""
+    tenant_id=session["user_id"]
 
-    if request.method == "POST":
+    user_id=session["user_id"]
 
-        user_message = request.form["message"]
 
-        try:
-            answer = ask_llm(user_message)
+    if request.method=="POST":
 
-        except Exception as e:
-            answer = f"Error: {str(e)}"
+        question=request.form["message"]
 
-    return render_template(
-        "chat.html",
-        email=session.get("email", ""),
-        answer=answer
+        save_message(
+            tenant_id,
+            user_id,
+            "user",
+            question
+        )
+
+        answer=ask_llm(question)
+
+        save_message(
+            tenant_id,
+            user_id,
+            "assistant",
+            answer
+        )
+
+
+    messages=get_chat_history(
+        tenant_id,
+        user_id
     )
 
+
+    return render_template(
+
+        "chat.html",
+
+        email=session.get(
+            "email",
+            ""
+        ),
+
+        messages=messages
+
+    )
 
 @app.route("/logout")
 def logout():

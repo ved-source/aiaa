@@ -1,53 +1,55 @@
-import os
 import requests
+import os
+from memory import save_message, get_chat_history
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 
-def ask_llm(user_message):
+def ask_llm(message, tenant_id, user_id):
+
+    history = get_chat_history(tenant_id, user_id)
+
+    history.append({
+        "role": "user",
+        "content": message
+    })
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json",
-        "HTTP-Referer": "https://aiaa.up.railway.app",
-        "X-Title": "AIAA"
+        "Content-Type": "application/json"
     }
 
     payload = {
-        "model": "openrouter/free",
-        "messages": [
-            {
-                "role": "system",
-                "content": "You are AIAA, a helpful AI assistant."
-            },
-            {
-                "role": "user",
-                "content": user_message
-            }
-        ]
+        "model": "nvidia/llama-3.1-nemotron-ultra-253b-v1:free",
+        "models": [
+            "nvidia/llama-3.1-nemotron-ultra-253b-v1:free",
+            "openrouter/auto"
+        ],
+        "messages": history
     }
 
-    try:
-        response = requests.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers=headers,
-            json=payload,
-            timeout=60
-        )
+    response = requests.post(
+        "https://openrouter.ai/api/v1/chat/completions",
+        headers=headers,
+        json=payload
+    )
 
-        data = response.json()
+    data = response.json()
 
-        # Debug output (visible in Railway logs)
-        print("OPENROUTER RESPONSE:", data)
+    reply = data["choices"][0]["message"]["content"]
 
-        # Error handling
-        if "error" in data:
-            return f"OpenRouter Error: {data['error'].get('message')}"
+    save_message(
+        tenant_id,
+        user_id,
+        "user",
+        message
+    )
 
-        if "choices" not in data:
-            return f"Unexpected response:\n{data}"
+    save_message(
+        tenant_id,
+        user_id,
+        "assistant",
+        reply
+    )
 
-        return data["choices"][0]["message"]["content"]
-
-    except Exception as e:
-        return f"Error: {str(e)}"
+    return reply
