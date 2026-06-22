@@ -1,6 +1,4 @@
 from pypdf import PdfReader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-
 from pinecone_utils import upsert_chunks
 
 
@@ -20,23 +18,23 @@ def extract_text(pdf_path):
     return text
 
 
-def chunk_text(text):
+def chunk_text(text, size=500, overlap=80):
 
-    splitter = RecursiveCharacterTextSplitter(
+    words = text.split()
 
-        chunk_size=500,
-        chunk_overlap=80,
+    chunks = []
+    i = 0
 
-        separators=[
-            "\n\n",
-            "\n",
-            ". ",
-            " ",
-            ""
-        ]
-    )
+    while i < len(words):
 
-    return splitter.split_text(text)
+        chunk = " ".join(words[i:i + size])
+
+        if chunk.strip():
+            chunks.append(chunk.strip())
+
+        i += size - overlap
+
+    return chunks
 
 
 def process_pdf(
