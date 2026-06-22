@@ -105,9 +105,7 @@ Relevant knowledge:
 
             "deepseek/deepseek-r1-0528:free",
 
-            "qwen/qwen3-coder:free",
-
-            "openrouter/auto"
+            "qwen/qwen3-coder:free"
 
         ],
 
