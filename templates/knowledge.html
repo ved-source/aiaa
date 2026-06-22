@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Knowledge Base</title>
+
+    <style>
+
+        body{
+            background:#08111f;
+            color:white;
+            font-family:Arial;
+            max-width:1100px;
+            margin:auto;
+            padding:40px;
+        }
+
+        h1{
+            margin-bottom:30px;
+        }
+
+        .card{
+            background:#152238;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:15px;
+        }
+
+        .filename{
+            font-size:20px;
+            font-weight:bold;
+        }
+
+        .meta{
+            color:#bbb;
+            margin-top:10px;
+        }
+
+        .delete-btn{
+            background:red;
+            color:white;
+            border:none;
+            padding:10px 18px;
+            border-radius:10px;
+            cursor:pointer;
+            margin-top:15px;
+        }
+
+        .upload-btn{
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:15px 25px;
+            border-radius:12px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        a{
+            text-decoration:none;
+            color:white;
+        }
+
+        .empty{
+            color:#bbb;
+            font-size:18px;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>📚 Knowledge Base</h1>
+
+
+<a href="/upload">
+    <button class="upload-btn">
+        Upload PDF
+    </button>
+</a>
+
+<br><br>
+
+
+{% if documents %}
+
+    {% for doc in documents %}
+
+    <div class="card">
+
+        <div class="filename">
+            {{ doc.filename }}
+        </div>
+
+        <div class="meta">
+            Chunks : {{ doc.chunk_count }}
+        </div>
+
+        {% if doc.created_at %}
+        <div class="meta">
+            Uploaded : {{ doc.created_at }}
+        </div>
+        {% endif %}
+
+        <a href="/delete_pdf/{{ doc.filename }}">
+            <button class="delete-btn">
+                Delete PDF
+            </button>
+        </a>
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="empty">
+    No PDFs uploaded yet.
+</div>
+
+{% endif %}
+
+
+<br><br>
+
+<a href="/chat">
+    ← Back to Chat
+</a>
+
+</body>
+</html>

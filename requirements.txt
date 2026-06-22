@@ -3,3 +3,9 @@ supabase
 gunicorn
 python-dotenv
 requests
+pinecone
+sentence-transformers
+langchain
+pypdf
+torch
+numpy

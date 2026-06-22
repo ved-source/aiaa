@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Knowledge Base</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+        }
+
+        .topbar{
+            background:#111827;
+            padding:20px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .topbar a{
+            color:white;
+            text-decoration:none;
+            margin-left:20px;
+        }
+
+        .container{
+            width:80%;
+            margin:auto;
+            margin-top:40px;
+        }
+
+        .upload-card{
+            background:#1e293b;
+            padding:40px;
+            border-radius:20px;
+            margin-bottom:30px;
+        }
+
+        .upload-card h1{
+            margin-bottom:30px;
+        }
+
+        .drop-area{
+            border:2px dashed #3b82f6;
+            border-radius:20px;
+            padding:50px;
+            text-align:center;
+        }
+
+        input[type=file]{
+            margin-top:20px;
+        }
+
+        button{
+            margin-top:20px;
+            background:#2563eb;
+            color:white;
+            border:none;
+            padding:15px 30px;
+            border-radius:10px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#1d4ed8;
+        }
+
+        .files-card{
+            background:#1e293b;
+            padding:30px;
+            border-radius:20px;
+        }
+
+        .file-row{
+            background:#334155;
+            padding:20px;
+            margin-top:15px;
+            border-radius:15px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .file-name{
+            font-size:18px;
+        }
+
+        .chunk-count{
+            color:#93c5fd;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div class="topbar">
+
+    <h2>AIAA Knowledge Base</h2>
+
+    <div>
+
+        <a href="/chat">Chat</a>
+
+        <a href="/upload">PDFs</a>
+
+        <a href="/logout">Logout</a>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <div class="upload-card">
+
+        <h1>Upload PDF</h1>
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            <div class="drop-area">
+
+                <h2>Upload PDF Documents</h2>
+
+                <p>
+                    These files will become your chatbot knowledge base.
+                </p>
+
+                <input
+                    type="file"
+                    name="pdf"
+                    accept=".pdf"
+                    required
+                >
+
+                <br>
+
+                <button type="submit">
+                    Upload PDF
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+    <div class="files-card">
+
+        <h1>Uploaded Files</h1>
+
+        {% if files %}
+
+            {% for file in files %}
+
+            <div class="file-row">
+
+                <div>
+
+                    <div class="file-name">
+                        {{ file.file_name }}
+                    </div>
+
+                    <div class="chunk-count">
+                        Chunks : {{ file.chunk_count }}
+                    </div>
+
+                </div>
+
+                <div>
+
+                    {{ file.created_at }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <br>
+
+            No PDFs uploaded yet.
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
