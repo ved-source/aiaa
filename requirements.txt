@@ -6,6 +6,7 @@ requests
 pinecone
 sentence-transformers
 langchain
+langchain-text-splitters
 pypdf
 torch
 numpy
