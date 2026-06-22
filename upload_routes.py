@@ -45,7 +45,7 @@ def upload():
             "pinecone_index_name": PINECONE_INDEX_NAME,
             "pinecone_namespace": tenant_id,
             "chunk_count": chunk_count,
-            "status": "processed"
+            "status": "ready"
         }).execute()
 
         return redirect("/knowledge")
