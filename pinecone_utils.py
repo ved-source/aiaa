@@ -9,6 +9,9 @@ def upsert_chunks(
         filename
 ):
 
+    if not chunks:
+        return
+
     vectors = []
 
     for i, chunk in enumerate(chunks):
