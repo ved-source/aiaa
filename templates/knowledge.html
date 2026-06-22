@@ -88,20 +88,20 @@
     <div class="card">
 
         <div class="filename">
-            {{ doc.filename }}
+            {{ doc.original_filename }}
         </div>
 
         <div class="meta">
             Chunks : {{ doc.chunk_count }}
         </div>
 
-        {% if doc.created_at %}
+        {% if doc.uploaded_at %}
         <div class="meta">
-            Uploaded : {{ doc.created_at }}
+            Uploaded : {{ doc.uploaded_at }}
         </div>
         {% endif %}
 
-        <a href="/delete_pdf/{{ doc.filename }}">
+        <a href="/delete_document/{{ doc.id }}">
             <button class="delete-btn">
                 Delete PDF
             </button>

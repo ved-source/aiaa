@@ -1,37 +1,21 @@
-from flask import Flask, render_template, request, redirect, session
 from dotenv import load_dotenv
-from supabase import create_client
+# Load environment variables before importing blueprints or modules that run module-level init code
+load_dotenv()
+
+from flask import Flask, render_template, request, redirect, session
 import os
 
 from chatbot import ask_llm
 from memory import save_message, get_chat_history
 from upload_routes import upload_bp
 from knowledge_routes import knowledge_page, delete_document
-
-load_dotenv()
+from config import supabase, supabase_auth, SECRET_KEY
 
 app = Flask(__name__)
-
-app.secret_key = os.getenv("SECRET_KEY")
+app.secret_key = SECRET_KEY
 
 # Register upload routes
 app.register_blueprint(upload_bp)
-
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
-SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
-
-# Auth client
-supabase_auth = create_client(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-)
-
-# Admin client
-supabase_admin = create_client(
-    SUPABASE_URL,
-    SUPABASE_SERVICE_ROLE_KEY
-)
 
 
 ################################################
@@ -71,7 +55,7 @@ def signup():
 
             user_id = response.user.id
 
-            supabase_admin.table(
+            supabase.table(
                 "tenants"
             ).insert(
                 {

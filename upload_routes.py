@@ -1,18 +1,9 @@
 from flask import Blueprint, request, redirect, render_template, session
-from supabase import create_client
+from config import supabase, PINECONE_INDEX_NAME
 from pdf_processor import process_pdf
-from pinecone_utils import upsert_chunks, delete_pdf_vectors
 import os
 
 upload_bp = Blueprint("upload", __name__)
-
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
-
-supabase = create_client(
-    SUPABASE_URL,
-    SUPABASE_SERVICE_ROLE_KEY
-)
 
 
 @upload_bp.route("/upload", methods=["GET", "POST"])
@@ -39,59 +30,33 @@ def upload():
 
         file.save(filepath)
 
-        chunks = process_pdf(filepath)
-
-        upsert_chunks(
-            chunks=chunks,
+        # process_pdf processes, chunks, and upserts to Pinecone, returning chunk count
+        chunk_count = process_pdf(
+            pdf_path=filepath,
             tenant_id=tenant_id,
-            filename=file.filename
+            file_name=file.filename
         )
 
-        supabase.table("pdf_documents").insert({
+        # Insert document record into tenant_documents in Supabase
+        supabase.table("tenant_documents").insert({
             "tenant_id": tenant_id,
-            "filename": file.filename,
-            "chunk_count": len(chunks)
+            "original_filename": file.filename,
+            "storage_path": filepath,
+            "pinecone_index_name": PINECONE_INDEX_NAME,
+            "pinecone_namespace": tenant_id,
+            "chunk_count": chunk_count,
+            "status": "processed"
         }).execute()
 
         return redirect("/knowledge")
 
-    return render_template("upload.html")
-
-
-@upload_bp.route("/knowledge")
-def knowledge():
-
-    tenant_id = session["tenant_id"]
-
+    # For GET request, list files under the tenant
     docs = (
-        supabase.table("pdf_documents")
+        supabase.table("tenant_documents")
         .select("*")
         .eq("tenant_id", tenant_id)
+        .order("uploaded_at", desc=True)
         .execute()
     )
 
-    return render_template(
-        "knowledge.html",
-        documents=docs.data
-    )
-
-
-@upload_bp.route("/delete_pdf/<filename>")
-def delete_pdf(filename):
-
-    tenant_id = session["tenant_id"]
-
-    delete_pdf_vectors(
-        tenant_id,
-        filename
-    )
-
-    (
-        supabase.table("pdf_documents")
-        .delete()
-        .eq("tenant_id", tenant_id)
-        .eq("filename", filename)
-        .execute()
-    )
-
-    return redirect("/knowledge")
+    return render_template("upload.html", files=docs.data)

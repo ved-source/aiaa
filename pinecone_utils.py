@@ -1,15 +1,6 @@
-from pinecone import Pinecone
+from config import index
 from embeddings import get_embedding
-import os
 import uuid
-
-pc = Pinecone(
-    api_key=os.getenv("PINECONE_API_KEY")
-)
-
-index = pc.Index(
-    os.getenv("PINECONE_INDEX_NAME")
-)
 
 
 def upsert_chunks(
@@ -74,3 +65,28 @@ def delete_pdf_vectors(
             "source": filename
         }
     )
+
+
+def retrieve_context(
+        query,
+        tenant_id,
+        top_k=5
+):
+
+    query_embedding = get_embedding(query)
+
+    result = index.query(
+        namespace=tenant_id,
+        vector=query_embedding,
+        top_k=top_k,
+        include_metadata=True
+    )
+
+    context = []
+
+    for match in result.get("matches", []):
+        context.append(
+            match["metadata"]["text"]
+        )
+
+    return context
