@@ -1,55 +1,66 @@
-import requests
 import os
-from memory import save_message, get_chat_history
+import requests
+from memory import get_chat_history
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 
 def ask_llm(message, tenant_id, user_id):
 
-    history = get_chat_history(tenant_id, user_id)
+    history = get_chat_history(
+        tenant_id,
+        user_id
+    )
 
-    history.append({
+    messages = []
+
+    # previous history
+    for msg in history:
+        messages.append({
+            "role": msg["role"],
+            "content": msg["content"]
+        })
+
+    # current user message
+    messages.append({
         "role": "user",
         "content": message
     })
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://aiaa.up.railway.app",
+        "X-Title": "AIAA"
     }
 
     payload = {
-        "model": "nvidia/llama-3.1-nemotron-ultra-253b-v1:free",
-        "models": [
-            "nvidia/llama-3.1-nemotron-ultra-253b-v1:free",
-            "openrouter/auto"
-        ],
-        "messages": history
+        "model": "openrouter/auto",
+        "messages": messages
     }
 
-    response = requests.post(
-        "https://openrouter.ai/api/v1/chat/completions",
-        headers=headers,
-        json=payload
-    )
+    try:
 
-    data = response.json()
+        response = requests.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers=headers,
+            json=payload,
+            timeout=60
+        )
 
-    reply = data["choices"][0]["message"]["content"]
+        data = response.json()
 
-    save_message(
-        tenant_id,
-        user_id,
-        "user",
-        message
-    )
+        print("OPENROUTER RESPONSE:", data)
 
-    save_message(
-        tenant_id,
-        user_id,
-        "assistant",
-        reply
-    )
+        if "error" in data:
+            return f"OpenRouter Error: {data['error']['message']}"
 
-    return reply
+        if "choices" not in data:
+            return f"Unexpected response: {data}"
+
+        reply = data["choices"][0]["message"]["content"]
+
+        return reply
+
+    except Exception as e:
+        return f"Error: {str(e)}"

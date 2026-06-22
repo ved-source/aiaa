@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, session
 from supabase import create_client
 from dotenv import load_dotenv
+from memory import save_message, get_chat_history
 from chatbot import ask_llm
 import os
-from memory import save_message,get_chat_history
-from chatbot import ask_llm
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -108,6 +108,7 @@ def login():
 
             session["access_token"] = response.session.access_token
             session["user_id"] = response.user.id
+            session["tenant_id"] = response.user.id
             session["email"] = response.user.email
 
             return redirect("/chat")
@@ -118,25 +119,20 @@ def login():
     return render_template("login.html")
 
 
-
-
-
-@app.route("/chat", methods=["GET","POST"])
+@app.route("/chat", methods=["GET", "POST"])
 def chat():
 
     if "user_id" not in session:
-
         return redirect("/login")
 
-    tenant_id=session["user_id"]
+    tenant_id = session["tenant_id"]
+    user_id = session["user_id"]
 
-    user_id=session["user_id"]
+    if request.method == "POST":
 
+        question = request.form["message"]
 
-    if request.method=="POST":
-
-        question=request.form["message"]
-
+        # save user message
         save_message(
             tenant_id,
             user_id,
@@ -144,8 +140,14 @@ def chat():
             question
         )
 
-        answer=ask_llm(question)
+        # generate answer
+        answer = ask_llm(
+            question,
+            tenant_id,
+            user_id
+        )
 
+        # save assistant answer
         save_message(
             tenant_id,
             user_id,
@@ -153,25 +155,17 @@ def chat():
             answer
         )
 
-
-    messages=get_chat_history(
+    messages = get_chat_history(
         tenant_id,
         user_id
     )
 
-
     return render_template(
-
         "chat.html",
-
-        email=session.get(
-            "email",
-            ""
-        ),
-
+        email=session.get("email", ""),
         messages=messages
-
     )
+
 
 @app.route("/logout")
 def logout():
