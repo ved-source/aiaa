@@ -1,42 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Signup</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | AIAA</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
 <div class="container">
+    <div class="logo-container">
+        <div class="logo-icon">🤖</div>
+    </div>
+    
+    <h1>Create Account</h1>
+    <p class="subtitle">Set up your account and initialize your tenant database</p>
 
-<h1>Create Account</h1>
+    <form method="POST">
+        <div class="form-group">
+            <label for="company_name">Company Name</label>
+            <input type="text" id="company_name" name="company_name" placeholder="Acme Inc." required>
+        </div>
 
-<form method="POST">
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@company.com" required>
+        </div>
 
-<input type="text"
-name="company_name"
-placeholder="Company Name"
-required>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Min. 8 characters" required>
+        </div>
 
-<input type="email"
-name="email"
-placeholder="Email"
-required>
+        <button type="submit">Sign Up</button>
+    </form>
 
-<input type="password"
-name="password"
-placeholder="Password"
-required>
-
-<button type="submit">
-Sign Up
-</button>
-
-</form>
-
-<a href="/login">
-Already have account?
-</a>
-
+    <div class="footer-link">
+        Already have an account? <a href="/login">Log In</a>
+    </div>
 </div>
 
 </body>

@@ -1,205 +1,627 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Knowledge Base</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload | AIAA Knowledge Base</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial;
+        :root {
+            --bg-primary: #080d1a;
+            --bg-sidebar: #0e1424;
+            --card-bg: rgba(19, 27, 46, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            --accent-color: #3b82f6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --success-color: #10b981;
         }
 
-        body{
-            background:#0f172a;
-            color:white;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        .topbar{
-            background:#111827;
-            padding:20px 40px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .topbar a{
-            color:white;
-            text-decoration:none;
-            margin-left:20px;
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
         }
 
-        .container{
-            width:80%;
-            margin:auto;
-            margin-top:40px;
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 8px;
+            margin-bottom: 10px;
         }
 
-        .upload-card{
-            background:#1e293b;
-            padding:40px;
-            border-radius:20px;
-            margin-bottom:30px;
+        .logo-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
         }
 
-        .upload-card h1{
-            margin-bottom:30px;
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .drop-area{
-            border:2px dashed #3b82f6;
-            border-radius:20px;
-            padding:50px;
-            text-align:center;
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            padding: 14px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
-        input[type=file]{
-            margin-top:20px;
+        .menu-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
         }
 
-        button{
-            margin-top:20px;
-            background:#2563eb;
-            color:white;
-            border:none;
-            padding:15px 30px;
-            border-radius:10px;
-            cursor:pointer;
+        .menu-btn.active {
+            color: var(--text-primary);
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.15);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.05);
         }
 
-        button:hover{
-            background:#1d4ed8;
+        .sidebar-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 10px 0;
         }
 
-        .files-card{
-            background:#1e293b;
-            padding:30px;
-            border-radius:20px;
+        .user-profile {
+            margin-top: auto;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .file-row{
-            background:#334155;
-            padding:20px;
-            margin-top:15px;
-            border-radius:15px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .file-name{
-            font-size:18px;
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
         }
 
-        .chunk-count{
-            color:#93c5fd;
+        .user-email {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 170px;
         }
 
+        .menu-btn.logout {
+            margin-top: 5px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.08);
+            color: #f87171;
+            font-size: 14px;
+            justify-content: center;
+        }
+
+        .menu-btn.logout:hover {
+            background: rgba(239, 68, 68, 0.16);
+            color: #ef4444;
+        }
+
+        /* Main Content Container */
+        .main-workspace {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: var(--bg-primary);
+            overflow-y: auto;
+        }
+
+        /* Topbar */
+        .topbar {
+            height: 70px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: rgba(8, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        .topbar-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topbar-right-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .topbar-right-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-secondary);
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* Cards Styling */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: blur(12px);
+        }
+
+        .card h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Drop Area */
+        .drop-area {
+            border: 2px dashed rgba(59, 130, 246, 0.4);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(15, 23, 42, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .drop-area:hover, .drop-area.dragover {
+            border-color: var(--accent-color);
+            background: rgba(59, 130, 246, 0.05);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.08);
+        }
+
+        .drop-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .drop-area h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .drop-area p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        /* File Input */
+        .file-input {
+            display: none;
+        }
+
+        .file-select-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .file-select-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .selected-file-indicator {
+            display: none;
+            margin-top: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: var(--success-color);
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            margin-top: 24px;
+            background: var(--accent-gradient);
+            border: none;
+            color: #ffffff;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+            filter: brightness(1.1);
+        }
+
+        .submit-btn:disabled {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            box-shadow: none;
+            cursor: not-allowed;
+            color: var(--text-muted);
+            transform: none;
+        }
+
+        /* Spinner */
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Table design for files-list */
+        .files-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        .files-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .files-table td {
+            padding: 16px;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+        }
+
+        .files-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .file-name-cell {
+            font-weight: 500;
+            max-width: 320px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-chunks-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .file-date-cell {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .empty-files {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
-
-<div class="topbar">
-
-    <h2>AIAA Knowledge Base</h2>
-
-    <div>
-
-        <a href="/chat">Chat</a>
-
-        <a href="/upload">PDFs</a>
-
-        <a href="/logout">Logout</a>
-
+<div class="sidebar">
+    <div class="logo-section">
+        <div class="logo-icon">🤖</div>
+        <span class="logo-text">AIAA</span>
     </div>
 
+    <a class="menu-btn" href="/chat">
+        💬 Chat
+    </a>
+
+    <a class="menu-btn active" href="/upload">
+        📄 Knowledge Base
+    </a>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="user-profile">
+        <div class="user-info">
+            <div class="user-avatar" id="avatar-letter">U</div>
+            <div class="user-email" id="user-email-text"></div>
+        </div>
+        <a class="menu-btn logout" href="/logout">Logout</a>
+    </div>
 </div>
 
+<div class="main-workspace">
+    <div class="topbar">
+        <div class="topbar-title">
+            📚 Knowledge Base File Setup
+        </div>
+        <a class="topbar-right-btn" href="/knowledge">
+            ⚙️ Manage Documents
+        </a>
+    </div>
 
-<div class="container">
+    <div class="dashboard-container">
+        <!-- Upload Card -->
+        <div class="card">
+            <h1>Upload PDF Document</h1>
+            <p class="card-subtitle">Add PDF content to your index. Once uploaded, it will be automatically chunked and vectorized.</p>
+            
+            <form method="POST" enctype="multipart/form-data" id="upload-form">
+                <div class="drop-area" id="drop-zone" onclick="document.getElementById('file-input').click()">
+                    <span class="drop-icon">📁</span>
+                    <h3>Drag & drop your PDF here</h3>
+                    <p>or click to browse from files</p>
+                    
+                    <input 
+                        type="file" 
+                        name="pdf" 
+                        id="file-input" 
+                        class="file-input" 
+                        accept=".pdf" 
+                        required
+                    >
+                    <span class="file-select-btn">Choose PDF File</span>
 
-    <div class="upload-card">
+                    <div class="selected-file-indicator" id="file-indicator">
+                        <span>📄</span>
+                        <strong id="selected-file-name">filename.pdf</strong>
+                    </div>
+                </div>
 
-        <h1>Upload PDF</h1>
-
-        <form method="POST"
-              enctype="multipart/form-data">
-
-            <div class="drop-area">
-
-                <h2>Upload PDF Documents</h2>
-
-                <p>
-                    These files will become your chatbot knowledge base.
-                </p>
-
-                <input
-                    type="file"
-                    name="pdf"
-                    accept=".pdf"
-                    required
-                >
-
-                <br>
-
-                <button type="submit">
-                    Upload PDF
+                <button type="submit" class="submit-btn" id="upload-btn">
+                    <span class="spinner" id="btn-spinner"></span>
+                    <span id="btn-text">Upload & Process PDF</span>
                 </button>
+            </form>
+        </div>
 
-            </div>
+        <!-- Files List Card -->
+        <div class="card">
+            <h1>Recently Added</h1>
+            <p class="card-subtitle">Latest active documents inside your Pinecone namespace.</p>
 
-        </form>
-
-    </div>
-
-
-
-    <div class="files-card">
-
-        <h1>Uploaded Files</h1>
-
-        {% if files %}
-
-            {% for file in files %}
-
-            <div class="file-row">
-
-                <div>
-
-                    <div class="file-name">
-                        {{ file.original_filename }}
-                    </div>
-
-                    <div class="chunk-count">
-                        Chunks : {{ file.chunk_count }}
-                    </div>
-
+            {% if files %}
+                <table class="files-table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Chunk Count</th>
+                            <th>Uploaded At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for file in files %}
+                        <tr>
+                            <td class="file-name-cell" title="{{ file.original_filename }}">
+                                📄 {{ file.original_filename }}
+                            </td>
+                            <td>
+                                <span class="file-chunks-badge">{{ file.chunk_count }} chunks</span>
+                            </td>
+                            <td class="file-date-cell">
+                                {{ file.uploaded_at }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty-files">
+                    No PDFs uploaded yet. Add your first document above.
                 </div>
-
-                <div>
-
-                    {{ file.uploaded_at }}
-
-                </div>
-
-            </div>
-
-            {% endfor %}
-
-        {% else %}
-
-            <br>
-
-            No PDFs uploaded yet.
-
-        {% endif %}
-
+            {% endif %}
+        </div>
     </div>
-
 </div>
 
+<script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileIndicator = document.getElementById('file-indicator');
+    const selectedFileName = document.getElementById('selected-file-name');
+    const uploadForm = document.getElementById('upload-form');
+    const uploadBtn = document.getElementById('upload-btn');
+    const btnSpinner = document.getElementById('btn-spinner');
+    const btnText = document.getElementById('btn-text');
+
+    // Extract user profile initial
+    const sidebarEmail = document.querySelector('.user-email');
+    // We can infer the email by checking if there's files or fetch from sessionStorage if we can, but since this runs under jinja rendering,
+    // let's grab it from session or display placeholder. We'll set it dynamically.
+    // In our upload page we don't have {{email}} passed by default from knowledge_routes unless we check it.
+    // Wait, let's look at the Flask GET route for upload in upload_routes.py:
+    // It returns render_template("upload.html", files=docs.data). It DOES NOT pass email!
+    // But we can check if session has it, or we can just hide/extract it.
+    // Let's pass a placeholder or get it. Since session is client-cookie, JS can't read Flask session directly.
+    // Let's look at the routes.py. Flask session contains the email as session["email"].
+    // Wait, if it does not pass email to upload.html template, we can make it show a default icon or hide the email text. Let's hide it if it's empty.
+    const emailPlaceholderText = "{{ session.get('email', '') }}";
+    const userEmailTextEl = document.getElementById('user-email-text');
+    if (emailPlaceholderText) {
+        userEmailTextEl.innerText = emailPlaceholderText;
+        document.getElementById("avatar-letter").innerText = emailPlaceholderText.charAt(0).toUpperCase();
+    } else {
+        userEmailTextEl.innerText = "User Profile";
+    }
+
+    // Drag and drop handlers
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+        }, false);
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length > 0 && files[0].type === "application/pdf") {
+            fileInput.files = files;
+            updateFileInfo(files[0].name);
+        } else {
+            alert("Only PDF files are supported!");
+        }
+    });
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            updateFileInfo(fileInput.files[0].name);
+        }
+    });
+
+    function updateFileInfo(name) {
+        selectedFileName.innerText = name;
+        fileIndicator.style.display = 'flex';
+        // Hide initial text/button inside dropzone
+        dropZone.querySelector('p').style.display = 'none';
+        dropZone.querySelector('.file-select-btn').style.display = 'none';
+    }
+
+    // Submission states
+    uploadForm.addEventListener('submit', () => {
+        uploadBtn.disabled = true;
+        btnSpinner.style.display = 'inline-block';
+        btnText.innerText = "Uploading & Indexing PDF...";
+    });
+</script>
 </body>
 </html>

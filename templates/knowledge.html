@@ -1,130 +1,454 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Knowledge Base</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Documents | AIAA Knowledge Base</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <style>
-
-        body{
-            background:#08111f;
-            color:white;
-            font-family:Arial;
-            max-width:1100px;
-            margin:auto;
-            padding:40px;
+        :root {
+            --bg-primary: #080d1a;
+            --bg-sidebar: #0e1424;
+            --card-bg: rgba(19, 27, 46, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            --accent-color: #3b82f6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --danger-color: #f87171;
+            --danger-bg: rgba(239, 68, 68, 0.15);
+            --danger-hover: #ef4444;
         }
 
-        h1{
-            margin-bottom:30px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
-        .card{
-            background:#152238;
-            padding:20px;
-            margin-bottom:20px;
-            border-radius:15px;
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .filename{
-            font-size:20px;
-            font-weight:bold;
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
         }
 
-        .meta{
-            color:#bbb;
-            margin-top:10px;
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 8px;
+            margin-bottom: 10px;
         }
 
-        .delete-btn{
-            background:red;
-            color:white;
-            border:none;
-            padding:10px 18px;
-            border-radius:10px;
-            cursor:pointer;
-            margin-top:15px;
+        .logo-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
         }
 
-        .upload-btn{
-            background:#2563eb;
-            color:white;
-            border:none;
-            padding:15px 25px;
-            border-radius:12px;
-            cursor:pointer;
-            font-size:16px;
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        a{
-            text-decoration:none;
-            color:white;
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            padding: 14px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
         }
 
-        .empty{
-            color:#bbb;
-            font-size:18px;
+        .menu-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
         }
 
+        .menu-btn.active {
+            color: var(--text-primary);
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.15);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.05);
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 10px 0;
+        }
+
+        .user-profile {
+            margin-top: auto;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .user-email {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 170px;
+        }
+
+        .menu-btn.logout {
+            margin-top: 5px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.08);
+            color: #f87171;
+            font-size: 14px;
+            justify-content: center;
+        }
+
+        .menu-btn.logout:hover {
+            background: rgba(239, 68, 68, 0.16);
+            color: #ef4444;
+        }
+
+        /* Main Content Container */
+        .main-workspace {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: var(--bg-primary);
+            overflow-y: auto;
+        }
+
+        /* Topbar */
+        .topbar {
+            height: 70px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: rgba(8, 13, 26, 0.8);
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        .topbar-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topbar-right-btn {
+            background: var(--accent-gradient);
+            border: none;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+        }
+
+        .topbar-right-btn:hover {
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
+            filter: brightness(1.1);
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* Cards Styling */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: var(--shadow-premium);
+            backdrop-filter: blur(12px);
+        }
+
+        .card h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Table design for document list */
+        .docs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        .docs-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .docs-table td {
+            padding: 16px;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+        }
+
+        .docs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .doc-name-cell {
+            font-weight: 500;
+            max-width: 320px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .doc-chunks-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .doc-date-cell {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        /* Action elements */
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger-color);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .delete-btn:hover {
+            background: var(--danger-bg);
+            border-color: var(--danger-hover);
+            color: #ffffff;
+        }
+
+        .empty-docs {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
     </style>
 </head>
 <body>
 
-<h1>📚 Knowledge Base</h1>
-
-
-<a href="/upload">
-    <button class="upload-btn">
-        Upload PDF
-    </button>
-</a>
-
-<br><br>
-
-
-{% if documents %}
-
-    {% for doc in documents %}
-
-    <div class="card">
-
-        <div class="filename">
-            {{ doc.original_filename }}
-        </div>
-
-        <div class="meta">
-            Chunks : {{ doc.chunk_count }}
-        </div>
-
-        {% if doc.uploaded_at %}
-        <div class="meta">
-            Uploaded : {{ doc.uploaded_at }}
-        </div>
-        {% endif %}
-
-        <a href="/delete_document/{{ doc.id }}">
-            <button class="delete-btn">
-                Delete PDF
-            </button>
-        </a>
-
+<div class="sidebar">
+    <div class="logo-section">
+        <div class="logo-icon">🤖</div>
+        <span class="logo-text">AIAA</span>
     </div>
 
-    {% endfor %}
+    <a class="menu-btn" href="/chat">
+        💬 Chat
+    </a>
 
-{% else %}
+    <a class="menu-btn active" href="/upload">
+        📄 Knowledge Base
+    </a>
 
-<div class="empty">
-    No PDFs uploaded yet.
+    <div class="sidebar-divider"></div>
+
+    <div class="user-profile">
+        <div class="user-info">
+            <div class="user-avatar" id="avatar-letter">U</div>
+            <div class="user-email" id="user-email-text"></div>
+        </div>
+        <a class="menu-btn logout" href="/logout">Logout</a>
+    </div>
 </div>
 
-{% endif %}
+<div class="main-workspace">
+    <div class="topbar">
+        <div class="topbar-title">
+            ⚙️ Manage Knowledge Base
+        </div>
+        <a class="topbar-right-btn" href="/upload">
+            + Upload Document
+        </a>
+    </div>
 
+    <div class="dashboard-container">
+        <div class="card">
+            <h1>Active Documents</h1>
+            <p class="card-subtitle">Below is a list of indexed files in your tenant. Deleting a file will remove both its Supabase registration and its associated Pinecone vectors.</p>
 
-<br><br>
+            {% if documents %}
+                <table class="docs-table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Chunk Count</th>
+                            <th>Uploaded At</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc in documents %}
+                        <tr>
+                            <td class="doc-name-cell" title="{{ doc.original_filename }}">
+                                📄 {{ doc.original_filename }}
+                            </td>
+                            <td>
+                                <span class="doc-chunks-badge">{{ doc.chunk_count }} chunks</span>
+                            </td>
+                            <td class="doc-date-cell">
+                                {{ doc.uploaded_at or 'N/A' }}
+                            </td>
+                            <td style="text-align: right;">
+                                <a 
+                                    href="/delete_document/{{ doc.id }}" 
+                                    class="delete-btn" 
+                                    onclick="return confirm('Are you sure you want to permanently delete this document and its associated vectors from Pinecone? This action cannot be undone.');"
+                                >
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty-docs">
+                    No active documents indexed in your knowledge base.
+                </div>
+            {% endif %}
+        </div>
 
-<a href="/chat">
-    ← Back to Chat
-</a>
+        <div>
+            <a class="back-link" href="/chat">
+                ← Back to Chat Console
+            </a>
+        </div>
+    </div>
+</div>
 
+<script>
+    // Extract user profile initial
+    const emailPlaceholderText = "{{ session.get('email', '') }}";
+    const userEmailTextEl = document.getElementById('user-email-text');
+    if (emailPlaceholderText) {
+        userEmailTextEl.innerText = emailPlaceholderText;
+        document.getElementById("avatar-letter").innerText = emailPlaceholderText.charAt(0).toUpperCase();
+    } else {
+        userEmailTextEl.innerText = "User Profile";
+    }
+</script>
 </body>
 </html>
