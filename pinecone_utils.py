@@ -70,6 +70,14 @@ def delete_pdf_vectors(
     )
 
 
+def delete_all_tenant_vectors(tenant_id):
+
+    index.delete(
+        namespace=tenant_id,
+        delete_all=True
+    )
+
+
 def retrieve_context(
         query,
         tenant_id,

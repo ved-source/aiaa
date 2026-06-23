@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terms of Service — AIAA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+:root,[data-theme="light"]{
+  --bg:#f5f4f0;--surface:#fafaf7;--surface2:#ffffff;--border:#dbd9d3;
+  --text:#1a1916;--muted:#6b6a66;--faint:#b0afa9;
+  --primary:#01696f;--primary-h:#0c4e54;
+  --radius:0.5rem;--radius-lg:0.875rem;
+  --shadow:0 2px 8px oklch(0.2 0.01 80/0.08);
+  --font-body:'Inter',sans-serif;--font-display:'Sora',sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#131211;--surface:#1a1917;--surface2:#201f1d;--border:#302f2c;
+  --text:#d4d3d0;--muted:#7a7875;--faint:#4a4947;
+  --primary:#4f98a3;--primary-h:#2d7f8b;
+  --shadow:0 2px 8px oklch(0 0 0/0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;scroll-padding-top:80px}
+body{font-family:var(--font-body);font-size:1rem;color:var(--text);background:var(--bg);min-height:100dvh;line-height:1.7}
+a{color:var(--primary);text-decoration:underline}
+a:hover{color:var(--primary-h)}
+
+.site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 84%,transparent);border-bottom:1px solid color-mix(in srgb,var(--border) 72%,transparent)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:68px;max-width:960px;margin:0 auto;padding:0 1.5rem}
+.brand{display:inline-flex;align-items:center;gap:.75rem;font-family:var(--font-display);font-weight:700;font-size:1.1rem;letter-spacing:-.03em;color:var(--text);text-decoration:none}
+.brand-mark{width:2.1rem;height:2.1rem;border-radius:.75rem;background:linear-gradient(145deg,var(--primary),color-mix(in srgb,var(--primary) 72%,white));display:grid;place-items:center;color:#fff;font-size:.9rem;font-weight:800}
+.nav-links{display:flex;align-items:center;gap:1rem}
+.nav-links a{color:var(--muted);font-size:.9rem;font-weight:500;text-decoration:none;transition:.15s}
+.nav-links a:hover{color:var(--text)}
+.theme-toggle{width:40px;height:40px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center}
+.theme-toggle:hover{background:var(--surface2)}
+
+.page-wrap{max-width:760px;margin:0 auto;padding:3rem 1.5rem 5rem}
+.page-header{margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.page-header h1{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;letter-spacing:-.03em;color:var(--text);margin-bottom:.5rem}
+.page-header p{color:var(--muted);font-size:.95rem}
+
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;margin-bottom:2.5rem}
+.toc h2{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:.75rem}
+.toc ol{padding-left:1.2rem;display:grid;gap:.35rem}
+.toc li{font-size:.9rem}
+.toc a{text-decoration:none;color:var(--muted)}
+.toc a:hover{color:var(--primary)}
+
+.section{margin-bottom:2.5rem}
+.section h2{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:.85rem;padding-top:.25rem}
+.section h3{font-size:.95rem;font-weight:600;color:var(--text);margin:1rem 0 .4rem}
+.section p{color:var(--muted);font-size:.95rem;margin-bottom:.75rem;max-width:72ch}
+.section ul,.section ol{padding-left:1.35rem;display:grid;gap:.45rem;margin-bottom:.75rem}
+.section li{color:var(--muted);font-size:.95rem;max-width:72ch}
+
+.highlight-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;margin:1rem 0}
+.highlight-box p{margin:0;font-size:.9rem}
+
+.site-footer{border-top:1px solid var(--border);padding:2rem 1.5rem;margin-top:3rem}
+.footer-inner{max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1.25rem;justify-content:space-between;align-items:center}
+.footer-links{display:flex;flex-wrap:wrap;gap:1rem}
+.footer-links a{color:var(--muted);font-size:.88rem;text-decoration:none;transition:.15s}
+.footer-links a:hover{color:var(--text)}
+.tiny{font-size:.82rem;color:var(--faint)}
+
+@media(max-width:600px){
+  .nav{flex-direction:column;align-items:stretch;padding:.75rem 1rem;min-height:auto;gap:.5rem}
+  .nav-links{justify-content:center}
+  .page-wrap{padding:2rem 1rem 4rem}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav">
+    <a href="/" class="brand">
+      <span class="brand-mark">AI</span>
+      <span>AIAA</span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/deletion">Data Deletion</a>
+      <a href="/app">App</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" type="button">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <div class="page-wrap">
+    <div class="page-header">
+      <h1>Terms of Service</h1>
+      <p>Last updated: 23 May 2026 &nbsp;|&nbsp; Effective: 23 May 2026</p>
+    </div>
+
+    <nav class="toc" aria-label="Table of contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#s1">1. Who We Are and What This Agreement Covers</a></li>
+        <li><a href="#s2">2. Eligibility and Account Registration</a></li>
+        <li><a href="#s3">3. Description of Services</a></li>
+        <li><a href="#s4">4. Acceptable Use</a></li>
+        <li><a href="#s5">5. WhatsApp Business Messaging</a></li>
+        <li><a href="#s6">6. AI-Generated Responses — Limitations and Disclaimer</a></li>
+        <li><a href="#s7">7. Data, Privacy and Consent</a></li>
+        <li><a href="#s8">8. Intellectual Property</a></li>
+        <li><a href="#s9">9. Fees and Payment</a></li>
+        <li><a href="#s10">10. Service Availability and Modifications</a></li>
+        <li><a href="#s11">11. Termination and Account Deletion</a></li>
+        <li><a href="#s12">12. Limitation of Liability</a></li>
+        <li><a href="#s13">13. Indemnification</a></li>
+        <li><a href="#s14">14. Governing Law and Disputes</a></li>
+        <li><a href="#s15">15. Changes to These Terms</a></li>
+        <li><a href="#s16">16. Contact</a></li>
+      </ol>
+    </nav>
+
+    <div class="section" id="s1">
+      <h2>1. Who We Are and What This Agreement Covers</h2>
+      <p>These Terms of Service ("Terms") form a binding legal agreement between you ("User", "you") and Sai Ved / AIAA — AI Agents and Automation Agency ("AIAA", "we", "us"), a business operating from India.</p>
+      <p>By accessing <strong>aiaa.app</strong> (the "Website"), creating an account, or using any AIAA service, you confirm that you have read, understood, and agree to these Terms in full. If you do not agree, do not use the service.</p>
+      <p>Contact: <a href="mailto:ved.work@outlook.com">ved.work@outlook.com</a></p>
+    </div>
+
+    <div class="section" id="s2">
+      <h2>2. Eligibility and Account Registration</h2>
+      <ul>
+        <li>You must be at least 18 years old and have the legal capacity to enter into contracts to use this service.</li>
+        <li>You must represent a legitimate business entity or operate as a sole proprietor in a lawful capacity.</li>
+        <li>You are responsible for maintaining the confidentiality of your login credentials. AIAA is not liable for any loss arising from unauthorized account access caused by your failure to secure your credentials.</li>
+        <li>One account per business entity. Creating multiple accounts to circumvent limits or policies is prohibited.</li>
+        <li>You must provide accurate, current, and complete registration information and keep it updated.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s3">
+      <h2>3. Description of Services</h2>
+      <p>AIAA provides the following services through its platform:</p>
+      <ul>
+        <li><strong>Document Intelligence:</strong> Upload business documents (PDFs, manuals, FAQs) which are indexed and used to generate AI-powered answers for you and your customers.</li>
+        <li><strong>WhatsApp Business Automation:</strong> Connect your WhatsApp Business account to receive and respond to customer messages automatically using your uploaded documents.</li>
+        <li><strong>Website Chat Widget:</strong> Embed a chat widget on your website that uses the same document intelligence to handle visitor queries.</li>
+        <li><strong>Custom Automation:</strong> Bespoke automation pipelines built to your business specifications (subject to separate agreements).</li>
+      </ul>
+      <p>Services are provided on an "as is" basis. We continuously improve the platform and features may change over time.</p>
+    </div>
+
+    <div class="section" id="s4">
+      <h2>4. Acceptable Use</h2>
+      <p>You agree not to use the AIAA platform to:</p>
+      <ul>
+        <li>Send spam, unsolicited bulk messages, or messages to individuals who have not opted in to receive communications from your business.</li>
+        <li>Upload content that is illegal, defamatory, fraudulent, obscene, or that infringes any third-party rights.</li>
+        <li>Impersonate any person, business, or entity, or misrepresent your affiliation.</li>
+        <li>Attempt to reverse-engineer, scrape, or extract data from the platform in an unauthorized manner.</li>
+        <li>Use the platform for any activity that violates applicable laws, including Indian IT laws, GDPR where applicable, or WhatsApp Business and Meta Platform Policies.</li>
+        <li>Introduce malware, viruses, or any harmful code into the platform.</li>
+        <li>Resell or sublicense access to the service without written permission from AIAA.</li>
+        <li>Harass, threaten, or harm any individual through automated messaging facilitated by this platform.</li>
+      </ul>
+      <p>AIAA reserves the right to suspend or terminate your account immediately and without notice if these obligations are breached.</p>
+    </div>
+
+    <div class="section" id="s5">
+      <h2>5. WhatsApp Business Messaging</h2>
+      <p>Use of WhatsApp automation through AIAA is subject to the following obligations:</p>
+      <ul>
+        <li><strong>Customer consent is mandatory.</strong> You are solely responsible for ensuring that every customer who receives automated WhatsApp messages from your account has explicitly opted in to receive such messages from your business. AIAA does not verify or manage your customer opt-ins.</li>
+        <li><strong>Opt-out must be honoured.</strong> Any customer who replies STOP, UNSUBSCRIBE, or otherwise requests to cease receiving messages must be removed from automated messaging immediately. It is your responsibility to configure and enforce opt-out handling.</li>
+        <li><strong>Message content is your responsibility.</strong> You are responsible for the accuracy, legality, and appropriateness of all messages sent through the platform, including AI-generated responses based on your documents.</li>
+        <li><strong>Policy compliance.</strong> You must comply with WhatsApp Business Policy and Meta's Messaging Standards at all times. AIAA acts as a technology intermediary and is not liable for violations caused by your use of the messaging features.</li>
+        <li><strong>Conversation logging.</strong> Incoming and outgoing WhatsApp messages processed through this platform are logged for service operation, quality monitoring, and security purposes. This is disclosed to you and must be disclosed to your customers where required by law.</li>
+        <li><strong>Rate limits apply.</strong> Automated messaging is subject to rate limits imposed both by AIAA and by WhatsApp's own platform policies to prevent abuse.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s6">
+      <h2>6. AI-Generated Responses — Limitations and Disclaimer</h2>
+      <div class="highlight-box">
+        <p><strong>Important:</strong> Responses generated by AIAA's AI are automated and based on the documents you upload. They may occasionally be incomplete, outdated, or inaccurate. Do not rely solely on AI-generated responses for medical, legal, financial, or safety-critical matters.</p>
+      </div>
+      <ul>
+        <li>AI responses are generated from the content in your uploaded documents. The quality and accuracy of responses depends entirely on the quality and completeness of those documents.</li>
+        <li>AIAA does not guarantee that AI responses will be correct, current, or free from errors at all times.</li>
+        <li><strong>Human oversight is your responsibility.</strong> We strongly recommend that you monitor AI responses regularly, especially in the first weeks of deployment, and implement a human override or escalation path for complex or sensitive customer queries.</li>
+        <li>AIAA is not liable for any harm, loss, or customer dissatisfaction arising from AI responses sent to your customers on your behalf.</li>
+        <li>AI responses must not be presented to your customers as coming from a human agent unless human agents are actually involved.</li>
+        <li>You must ensure that your customers are aware they may be interacting with an AI system where such disclosure is required by law.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s7">
+      <h2>7. Data, Privacy and Consent</h2>
+      <p>By using AIAA, you consent to the collection and processing of your data as described in our <a href="/privacy">Privacy Policy</a>, which is incorporated into these Terms by reference.</p>
+      <ul>
+        <li>You retain ownership of all business documents, content, and data you upload to the platform.</li>
+        <li>You grant AIAA a limited, non-exclusive licence to process your uploaded content solely for the purpose of providing the service to you.</li>
+        <li>You are responsible for ensuring you have the legal right to upload any content you provide, including documents containing customer data or third-party information.</li>
+        <li>You are responsible for obtaining all necessary consents from your customers before their data (including chat messages and phone numbers) is processed through this platform.</li>
+        <li>You may request deletion of all your data at any time via the <a href="/deletion">Data Deletion</a> page. Deletion is permanent and irreversible.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s8">
+      <h2>8. Intellectual Property</h2>
+      <p>All software, design, code, trademarks, and content on the AIAA platform are owned by or licensed to AIAA and are protected by applicable intellectual property laws.</p>
+      <ul>
+        <li>You may not copy, reproduce, distribute, or create derivative works from AIAA's platform, code, or branding without written permission.</li>
+        <li>Feedback, suggestions, or improvement ideas you share with us may be used by AIAA freely and without obligation to you.</li>
+        <li>Your uploaded documents and business content remain your property. AIAA makes no claim of ownership over your content.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s9">
+      <h2>9. Fees and Payment</h2>
+      <p>Specific pricing plans and billing terms are presented at the time of subscription. The following general terms apply:</p>
+      <ul>
+        <li>Fees are charged in advance on a subscription basis unless otherwise stated.</li>
+        <li>All fees are non-refundable except where required by applicable law or explicitly stated in a separate written agreement.</li>
+        <li>AIAA reserves the right to change pricing with 30 days' notice. Continued use after a price change constitutes acceptance.</li>
+        <li>You are responsible for all applicable taxes on fees charged to you.</li>
+        <li>Non-payment may result in service suspension until outstanding amounts are settled.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s10">
+      <h2>10. Service Availability and Modifications</h2>
+      <ul>
+        <li>AIAA aims for high availability but does not guarantee uninterrupted or error-free service. Scheduled and unscheduled maintenance may cause temporary downtime.</li>
+        <li>AIAA may modify, add, or remove features at any time. Material changes that affect your use will be communicated in advance where reasonably possible.</li>
+        <li>AIAA is not liable for losses arising from service outages, third-party platform downtime (including WhatsApp, Supabase, or OpenAI), or force majeure events.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s11">
+      <h2>11. Termination and Account Deletion</h2>
+      <ul>
+        <li>You may cancel your account at any time by using the <a href="/deletion">Data Deletion page</a> or by contacting us at <a href="mailto:ved.work@outlook.com">ved.work@outlook.com</a>.</li>
+        <li>Upon account deletion, all your data including uploaded documents, indexed content, and WhatsApp configuration will be permanently removed from our systems within a reasonable period.</li>
+        <li>AIAA may suspend or terminate your account immediately for breach of these Terms, non-payment, or if continued operation poses a legal, security, or abuse risk.</li>
+        <li>Termination does not relieve you of any obligations incurred prior to the termination date.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s12">
+      <h2>12. Limitation of Liability</h2>
+      <p>To the maximum extent permitted by applicable law:</p>
+      <ul>
+        <li>AIAA's total liability to you for any claim arising from or related to these Terms or the service shall not exceed the total fees paid by you to AIAA in the three months preceding the claim.</li>
+        <li>AIAA is not liable for any indirect, incidental, consequential, special, or punitive damages, including loss of revenue, loss of customers, or reputational harm, even if AIAA has been advised of the possibility of such damages.</li>
+        <li>AIAA is not responsible for losses arising from your failure to secure your account, your failure to comply with WhatsApp Business Policies, or your use of AI-generated responses without adequate human oversight.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s13">
+      <h2>13. Indemnification</h2>
+      <p>You agree to indemnify, defend, and hold harmless AIAA and its personnel from any claims, damages, costs, or expenses (including reasonable legal fees) arising from:</p>
+      <ul>
+        <li>Your use of the service in violation of these Terms or applicable law.</li>
+        <li>Your uploaded content infringing any third-party right.</li>
+        <li>Automated messages sent to customers who have not provided valid consent.</li>
+        <li>Your failure to implement required opt-out handling or AI disclosure obligations.</li>
+      </ul>
+    </div>
+
+    <div class="section" id="s14">
+      <h2>14. Governing Law and Disputes</h2>
+      <p>These Terms are governed by the laws of India. Any dispute arising from or related to these Terms shall first be addressed through good-faith negotiation. If unresolved, disputes shall be subject to the exclusive jurisdiction of the courts of Telangana, India.</p>
+      <p>For users in the European Economic Area, mandatory consumer protection rights under your local law are not affected by this clause.</p>
+    </div>
+
+    <div class="section" id="s15">
+      <h2>15. Changes to These Terms</h2>
+      <p>We may update these Terms periodically. When we do, we will update the "Last updated" date at the top. For material changes, we will make reasonable efforts to notify you via the email address associated with your account. Continued use of the service after changes take effect constitutes your acceptance of the updated Terms.</p>
+    </div>
+
+    <div class="section" id="s16">
+      <h2>16. Contact</h2>
+      <p>For any questions about these Terms, please contact:</p>
+      <div class="highlight-box">
+        <p><strong>Sai Ved / AIAA — AI Agents and Automation Agency</strong><br/>
+        Email: <a href="mailto:ved.work@outlook.com">ved.work@outlook.com</a><br/>
+        Location: Telangana, India</p>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="tiny">© 2026 Sai Ved / AIAA. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/deletion">Data Deletion</a>
+      <a href="/app">Open App</a>
+      <a href="mailto:ved.work@outlook.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const r=document.documentElement, b=document.getElementById('theme-toggle');
+  const saved = null; // no localStorage in some contexts
+  const sys = window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  let cur = sys;
+  r.setAttribute('data-theme', cur);
+  if (b) {
+    b.addEventListener('click', function(){
+      cur = cur === 'dark' ? 'light' : 'dark';
+      r.setAttribute('data-theme', cur);
+      b.setAttribute('aria-label', 'Switch to ' + (cur === 'dark' ? 'light' : 'dark') + ' mode');
+    });
+  }
+})();
+</script>
+</body>
+</html>

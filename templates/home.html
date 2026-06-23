@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIAA - AI Agents and Automation Agency</title>
+  <meta name="description" content="AIAA builds AI agents and automation systems that handle customer support, answer document questions, and automate WhatsApp messaging for your business." />
+  <style>
+    :root,[data-theme="light"]{--bg:#f6f4ef;--surface:#fcfbf8;--surface-2:#f1eee8;--border:#d7d2ca;--text:#1c1a17;--muted:#6f6b64;--faint:#9c988f;--primary:#01696f;--primary-hover:#0c4e54;--primary-soft:#d9e9e7;--radius-sm:.5rem;--radius-md:.875rem;--radius-lg:1.25rem;--shadow-sm:0 2px 10px rgba(19,20,18,.06);--shadow-lg:0 18px 40px rgba(19,20,18,.08);--content:1180px;--font-body:Inter,system-ui,sans-serif;--font-display:Sora,Inter,system-ui,sans-serif}
+    [data-theme="dark"]{--bg:#11110f;--surface:#181715;--surface-2:#201f1c;--border:#302e2a;--text:#eeece7;--muted:#b2aea6;--faint:#817d76;--primary:#4f98a3;--primary-hover:#72aeb6;--primary-soft:#203438;--shadow-sm:0 2px 10px rgba(0,0,0,.25);--shadow-lg:0 18px 40px rgba(0,0,0,.35)}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}img,svg{display:block;max-width:100%}button,input,textarea,select{font:inherit}.container{width:min(var(--content),calc(100% - 2rem));margin:0 auto}.section{padding:5rem 0}.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--primary);font-weight:700;margin-bottom:1rem}.eyebrow::before{content:"";width:2rem;height:1px;background:currentColor;opacity:.5}h1,h2,h3{font-family:var(--font-display);line-height:1.08}p{color:var(--muted);max-width:70ch}
+    .site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 84%,transparent);border-bottom:1px solid color-mix(in srgb,var(--border) 72%,transparent)}.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:74px}.brand{display:inline-flex;align-items:center;gap:.85rem;font-family:var(--font-display);font-weight:700;letter-spacing:-.03em}.brand-mark{width:2.35rem;height:2.35rem;border-radius:.9rem;background:linear-gradient(145deg,var(--primary),color-mix(in srgb,var(--primary) 72%,white));display:grid;place-items:center;color:#fff;box-shadow:var(--shadow-sm);font-size:1rem;font-weight:800}.nav-links{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap}.nav-links a{color:var(--muted);font-size:.95rem;font-weight:500;transition:.15s}.nav-links a:hover{color:var(--text)}.header-actions{display:flex;align-items:center;gap:.65rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem 1.15rem;border-radius:999px;border:1px solid transparent;transition:.18s ease;font-weight:600;cursor:pointer;min-height:44px;font-size:.95rem}.btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow-sm)}.btn-primary:hover{background:var(--primary-hover)}.btn-secondary{border-color:var(--border);background:var(--surface);color:var(--text)}.btn-secondary:hover{background:var(--surface-2)}.btn-ghost{background:transparent;color:var(--muted);border-color:var(--border)}.btn-ghost:hover{color:var(--text);background:var(--surface)}
+    .hero{padding:5.5rem 0 4rem}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}.hero-copy h1{font-size:clamp(2.6rem,5vw,5.3rem);margin-bottom:1rem;max-width:13ch}.hero-copy>p{font-size:1.05rem;margin-bottom:1.5rem}.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:1.25rem}.hero-note{display:flex;flex-wrap:wrap;gap:.75rem;color:var(--faint);font-size:.9rem}.hero-note span{display:inline-flex;align-items:center;gap:.45rem}.hero-card{background:var(--surface);border:1px solid var(--border);border-radius:1.5rem;padding:1.35rem;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}.hero-card::after{content:"";position:absolute;inset:auto -4rem -4rem auto;width:12rem;height:12rem;border-radius:50%;background:color-mix(in srgb,var(--primary) 16%,transparent);filter:blur(10px)}.stack{display:grid;gap:1rem;position:relative;z-index:1}.mini-panel{background:var(--surface-2);border:1px solid var(--border);border-radius:1rem;padding:1rem}.mini-panel h3{font-size:1rem;margin-bottom:.5rem}.mini-list{display:grid;gap:.75rem}.mini-row{display:flex;justify-content:space-between;gap:.75rem;color:var(--muted);font-size:.92rem}.mini-row strong{color:var(--text)}.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .7rem;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-size:.78rem;font-weight:700;width:fit-content}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}.stat{background:var(--surface);border:1px solid var(--border);border-radius:1rem;padding:1rem}.stat strong{display:block;font-size:1.8rem;font-family:var(--font-display);color:var(--text);margin-bottom:.2rem}.stat span{color:var(--muted);font-size:.88rem}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:1.75rem}.section-head h2{font-size:clamp(1.9rem,3vw,3rem);max-width:14ch}.services-grid{display:grid;gap:1rem;grid-template-columns:repeat(3,1fr)}.card{background:var(--surface);border:1px solid var(--border);border-radius:1.25rem;padding:1.35rem;box-shadow:var(--shadow-sm)}.card-icon{width:2.8rem;height:2.8rem;border-radius:.85rem;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary);margin-bottom:1rem;font-weight:800;font-size:1rem}.card h3{font-size:1.15rem;margin-bottom:.55rem}.card p{font-size:.95rem}
+    .steps-grid{display:grid;gap:1rem;grid-template-columns:repeat(4,1fr)}.step-num{width:2.2rem;height:2.2rem;border-radius:999px;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:700;margin-bottom:.9rem;font-size:.95rem}
+    .trust-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface)}.trust-wrap{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.25rem 0;flex-wrap:wrap}.trust-items{display:flex;flex-wrap:wrap;gap:1.25rem}.trust-item{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:var(--muted);font-weight:500}.trust-item::before{content:"";width:.5rem;height:.5rem;border-radius:999px;background:var(--primary);flex-shrink:0}
+    .contact-grid{display:grid;grid-template-columns:.95fr 1.05fr;align-items:start;gap:1rem}.contact-panel{background:var(--surface);border:1px solid var(--border);border-radius:1.4rem;padding:1.75rem;box-shadow:var(--shadow-sm)}.contact-panel h2{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:.75rem}.contact-list{display:grid;gap:.85rem;margin-top:1.25rem}.contact-item{padding:.9rem 1rem;border-radius:1rem;background:var(--surface-2);border:1px solid var(--border)}.contact-item small{display:block;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.25rem;font-size:.75rem}.form-panel{background:var(--surface);border:1px solid var(--border);border-radius:1.4rem;padding:1.75rem;box-shadow:var(--shadow-sm)}form{display:grid;gap:.95rem}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}label{display:grid;gap:.42rem;font-size:.9rem;color:var(--muted);font-weight:600}input,textarea,select{width:100%;border:1px solid var(--border);background:var(--surface-2);color:var(--text);padding:.9rem 1rem;border-radius:.9rem;outline:none;font-size:.95rem}input:focus,textarea:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(1,105,111,.1)}textarea{min-height:140px;resize:vertical}
+    .site-footer{padding:2rem 0 3rem;border-top:1px solid var(--border)}.footer-grid{display:grid;grid-template-columns:1.3fr .7fr .7fr;gap:2rem;align-items:start}.footer-links{display:grid;gap:.55rem}.footer-links a{color:var(--muted);font-size:.95rem;transition:.15s}.footer-links a:hover{color:var(--text)}.tiny{font-size:.88rem;color:var(--faint)}.theme-toggle{width:44px;height:44px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:.15s}.theme-toggle:hover{background:var(--surface-2)}
+    #form-status{display:none;padding:.85rem 1rem;border-radius:.85rem;font-size:.92rem;font-weight:500;margin-top:.5rem}.s-ok{background:#dcfce7;border:1px solid #86efac;color:#166534}.s-err{background:#fee2e2;border:1px solid #fca5a5;color:#991b1b}
+    @media(max-width:1024px){.hero-grid,.contact-grid,.services-grid,.footer-grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}@media(max-width:760px){.nav{min-height:auto;padding:.9rem 0;flex-direction:column;align-items:stretch}.nav-links,.header-actions{justify-content:center}.hero,.section{padding:3.5rem 0}.hero-grid,.contact-grid,.services-grid,.steps-grid,.footer-grid,.form-row{grid-template-columns:1fr}.section-head{flex-direction:column;align-items:start}.hero-copy h1,.section-head h2{max-width:none}.stats{grid-template-columns:1fr 1fr}}@media(max-width:480px){.stats{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <span class="brand-mark">AI</span>
+        <span>AIAA</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#how-it-works">How it Works</a>
+        <a href="#contact">Contact</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle theme">◐</button>
+        <a class="btn btn-primary" href="/app">Launch App</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">AI Agents and Automation Agency</div>
+          <h1>Customer support that works while you sleep.</h1>
+          <p>AIAA helps businesses deploy AI agents that answer customer questions from your documents, automate WhatsApp replies, and handle repetitive support work around the clock. You focus on growing your business. The AI handles the inbox.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">Book a Free Consultation</a>
+            <a class="btn btn-secondary" href="/app">Launch Dashboard</a>
+          </div>
+          <div class="hero-note">
+            <span>Document-based AI answers</span>
+            <span>WhatsApp automation</span>
+            <span>24/7 customer support</span>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>24/7</strong><span>Round-the-clock automated responses without hiring extra staff.</span></div>
+            <div class="stat"><strong>Minutes</strong><span>Average setup time to connect your first document and go live.</span></div>
+            <div class="stat"><strong>Zero</strong><span>Technical knowledge required to upload documents and start chatting.</span></div>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Platform overview">
+          <div class="stack">
+            <div class="pill">What AIAA does</div>
+            <div class="mini-panel">
+              <h3>Automated customer support</h3>
+              <div class="mini-list">
+                <div class="mini-row"><span>Website chat assistant</span><strong>Live</strong></div>
+                <div class="mini-row"><span>WhatsApp auto-replies</span><strong>Connected</strong></div>
+                <div class="mini-row"><span>Document-based answers</span><strong>Instant</strong></div>
+              </div>
+            </div>
+            <div class="mini-panel">
+              <h3>What your customers get</h3>
+              <div class="mini-list">
+                <div class="mini-row"><span>Accurate answers from your content</span><strong>Always on</strong></div>
+                <div class="mini-row"><span>Fast response time</span><strong>Seconds</strong></div>
+                <div class="mini-row"><span>Consistent experience</span><strong>Every time</strong></div>
+              </div>
+            </div>
+            <div class="mini-panel">
+              <h3>What you eliminate</h3>
+              <div class="mini-list">
+                <div class="mini-row"><span>Repetitive customer queries</span><strong>Handled</strong></div>
+                <div class="mini-row"><span>After-hours support gaps</span><strong>Closed</strong></div>
+                <div class="mini-row"><span>Manual document search</span><strong>Replaced</strong></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Trust signals">
+      <div class="container trust-wrap">
+        <div class="trust-items">
+          <div class="trust-item">Supabase secure storage</div>
+          <div class="trust-item">End-to-end encrypted transit</div>
+          <div class="trust-item">Multi-tenant architecture</div>
+        </div>
+        <a class="btn btn-ghost" href="/privacy">Privacy Policy</a>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Services</div>
+            <h2>AI automation built for real business problems.</h2>
+          </div>
+          <p>Every service is production-ready and deployable for small businesses, growing teams, and customer-heavy operations.</p>
+        </div>
+        <div class="services-grid">
+          <article class="card">
+            <div class="card-icon">01</div>
+            <h3>Document intelligence</h3>
+            <p>Upload your product manuals, FAQs, service brochures, or policy documents. Your customers and support team instantly get accurate answers without digging through files.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">02</div>
+            <h3>WhatsApp support automation</h3>
+            <p>Connect your WhatsApp Business account and automate responses to common customer questions. The AI replies using your uploaded content, 24 hours a day.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">03</div>
+            <h3>Custom AI workflows</h3>
+            <p>Beyond off-the-shelf solutions, AIAA builds custom automation pipelines for lead intake, internal knowledge access, multi-channel support routing, and business-specific processes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">How it works</div>
+            <h2>Live in four steps.</h2>
+          </div>
+          <p>No complex setup. No lengthy onboarding. Most businesses are fully live within a single working day.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="card">
+            <div class="step-num">1</div>
+            <h3>Upload your content</h3>
+            <p>Add product guides, service documents, FAQs, or policy files. The AI reads and indexes them automatically.</p>
+          </article>
+          <article class="card">
+            <div class="step-num">2</div>
+            <h3>Connect your channels</h3>
+            <p>Link your website chat widget or connect WhatsApp through the guided onboarding flow inside the dashboard.</p>
+          </article>
+          <article class="card">
+            <div class="step-num">3</div>
+            <h3>Test and verify</h3>
+            <p>Ask questions yourself, confirm the answers are accurate, and tune the assistant before going live with customers.</p>
+          </article>
+          <article class="card">
+            <div class="step-num">4</div>
+            <h3>Go live and scale</h3>
+            <p>Switch on customer-facing access. Monitor real usage, update documents as your business grows, and add channels as needed.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-panel">
+          <div class="eyebrow">Contact</div>
+          <h2>Ready to automate your customer support?</h2>
+          <p>Tell us about your business and what you need automated. We will follow up within one business day with a clear plan and timeline.</p>
+          <div class="contact-list">
+            <div class="contact-item">
+              <small>Email</small>
+              <div><a href="mailto:ved.work@outlook.com" style="color:var(--primary)">ved.work@outlook.com</a></div>
+            </div>
+            <div class="contact-item">
+              <small>Best suited for</small>
+              <div>Small businesses, growing teams, and customer-heavy operations that need practical AI automation.</div>
+            </div>
+            <div class="contact-item">
+              <small>Response time</small>
+              <div>Within one business day. Urgent inquiries can be flagged in the message.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-panel">
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <label>Full name<input type="text" name="name" placeholder="Your full name" required></label>
+              <label>Company name<input type="text" name="company" placeholder="Your company or brand" required></label>
+            </div>
+            <div class="form-row">
+              <label>Email address<input type="email" name="email" placeholder="you@company.com" required></label>
+              <label>Phone or WhatsApp<input type="text" name="phone" placeholder="Optional"></label>
+            </div>
+            <label>What do you need?
+              <select name="project_type" required>
+                <option value="">Select a service</option>
+                <option>AI website assistant</option>
+                <option>WhatsApp support automation</option>
+                <option>Document intelligence system</option>
+                <option>Custom AI workflow</option>
+                <option>Full automation package</option>
+              </select>
+            </label>
+            <label>Project details
+              <textarea name="details" placeholder="Describe your current process, the problem you are facing, and what outcome you are looking for." required></textarea>
+            </label>
+            <div id="form-status" role="alert"></div>
+            <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;">Send inquiry</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:.85rem;">
+          <span class="brand-mark">AI</span>
+          <span>AIAA</span>
+        </div>
+        <p class="tiny" style="max-width:28ch">AI Agents and Automation Agency. Practical AI automation for businesses that want results, not complexity.</p>
+      </div>
+      <div>
+        <p style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.75rem">Navigation</p>
+        <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#services">Services</a>
+          <a href="#how-it-works">How it Works</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.75rem">Legal</p>
+        <div class="footer-links">
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
+          <a href="/deletion">Data Deletion</a>
+          <a href="/app">Open App</a>
+          <a href="mailto:ved.work@outlook.com">ved.work@outlook.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    (function(){
+      const r=document.documentElement,b=document.getElementById('theme-toggle');
+      let t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+      r.setAttribute('data-theme',t);
+      b.addEventListener('click',function(){
+        t=t==='dark'?'light':'dark';
+        r.setAttribute('data-theme',t);
+        localStorage.setItem('theme',t);
+      });
+    })();
+
+    // Contact form - sends to /contact or falls back to mailto
+    document.getElementById('contact-form').addEventListener('submit', async function(e){
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('button[type=submit]');
+      const status = document.getElementById('form-status');
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      if (!data.name || !data.email || !data.project_type || !data.details) {
+        status.style.display='block';
+        status.className='s-err';
+        status.textContent='Please fill in all required fields.';
+        return;
+      }
+
+      btn.disabled=true; btn.textContent='Sending...';
+      status.style.display='none';
+
+      try {
+        const res = await fetch('/contact', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify(data)
+        });
+        if(res.ok){
+          status.style.display='block';
+          status.className='s-ok';
+          status.textContent='Your inquiry has been sent. We will follow up within one business day.';
+          form.reset();
+        } else {
+          throw new Error('server');
+        }
+      } catch {
+        // Fallback: open mailto if backend contact route not yet set up
+        const body=encodeURIComponent(
+          'Name: '+data.name+'
+Company: '+data.company+'
+Email: '+data.email+
+          '
+Phone: '+(data.phone||'N/A')+'
+Service: '+data.project_type+
+          '
+
+Details:
+'+data.details
+        );
+        window.location.href='mailto:ved.work@outlook.com?subject=AIAA Inquiry - '+encodeURIComponent(data.project_type)+'&body='+body;
+      }
+      btn.disabled=false; btn.textContent='Send inquiry';
+    });
+  </script>
+
+  <!-- COOKIE & DATA CONSENT BANNER -->
+  <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Data consent notice" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:var(--surface);border-top:1px solid var(--border);padding:1.25rem 1.5rem;box-shadow:0 -4px 24px oklch(0.2 0.01 80/0.12)">
+    <div style="max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:1rem;justify-content:space-between">
+      <div style="flex:1;min-width:240px">
+        <p style="font-size:.9rem;color:var(--text);margin:0 0 .35rem">We use cookies and process data you provide (business documents, chat messages, contact details) to operate this service. By continuing, you agree to our <a href="/privacy" style="color:var(--primary);text-decoration:underline">Privacy Policy</a> and <a href="/terms" style="color:var(--primary);text-decoration:underline">Terms of Service</a>.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin:0">AI responses are generated automatically and may occasionally be imprecise. Always verify critical information independently.</p>
+      </div>
+      <div style="display:flex;gap:.65rem;flex-shrink:0">
+        <button onclick="rejectCookies()" style="padding:.5rem 1.1rem;border-radius:.5rem;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:.88rem;cursor:pointer">Decline</button>
+        <button onclick="acceptCookies()" style="padding:.5rem 1.1rem;border-radius:.5rem;background:var(--primary);color:#fff;font-size:.88rem;cursor:pointer;border:none">Accept &amp; Continue</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var b=document.getElementById('cookie-banner');
+    var v=null;
+    try{v=localStorage.getItem('aiaa_consent');}catch(e){}
+    if(!v){b.style.display='';}
+    window.acceptCookies=function(){try{localStorage.setItem('aiaa_consent','accepted');}catch(e){}b.style.display='none';};
+    window.rejectCookies=function(){try{localStorage.setItem('aiaa_consent','declined');}catch(e){}b.style.display='none';};
+  })();
+  </script>
+
+</body>
+</html>
