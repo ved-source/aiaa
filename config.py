@@ -13,6 +13,7 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME")
 SECRET_KEY = os.getenv("SECRET_KEY")
+WHATSAPP_VERIFY_TOKEN = os.getenv("WHATSAPP_VERIFY_TOKEN", "aiaa-secret-token")
 
 # Supabase Admin/Service-Role Client
 supabase = create_client(

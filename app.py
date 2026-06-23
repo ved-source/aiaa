@@ -9,7 +9,7 @@ from chatbot import ask_llm
 from memory import save_message, get_chat_history
 from upload_routes import upload_bp
 from knowledge_routes import knowledge_page, delete_document
-from config import supabase, supabase_auth, SECRET_KEY
+from config import supabase, supabase_auth, SECRET_KEY, WHATSAPP_VERIFY_TOKEN
 from pinecone_utils import delete_all_tenant_vectors
 
 app = Flask(__name__)
@@ -284,6 +284,32 @@ def delete_account():
     except Exception as e:
         print("Account deletion error:", e)
         return jsonify({"error": str(e)}), 400
+
+
+################################################
+# WHATSAPP WEBHOOK
+################################################
+
+@app.route("/webhook/whatsapp", methods=["GET", "POST"])
+def whatsapp_webhook():
+    if request.method == "GET":
+        mode = request.args.get("hub.mode")
+        token = request.args.get("hub.verify_token")
+        challenge = request.args.get("hub.challenge")
+
+        if mode == "subscribe" and token == WHATSAPP_VERIFY_TOKEN:
+            # Facebook expectation: return the challenge back as is
+            return challenge, 200
+        return "Forbidden", 403
+
+    elif request.method == "POST":
+        try:
+            body = request.get_json()
+            print("Received WhatsApp Webhook POST event:", body)
+            return jsonify({"status": "received"}), 200
+        except Exception as e:
+            print("Error parsing WhatsApp Webhook POST payload:", e)
+            return jsonify({"error": str(e)}), 400
 
 
 ################################################
