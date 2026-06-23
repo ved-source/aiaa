@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 # Load environment variables before importing blueprints or modules that run module-level init code
 load_dotenv()
 
-from flask import Flask, render_template, request, redirect, session, jsonify
+from flask import Flask, render_template, request, redirect, session, jsonify, Response
 import os
 
 from chatbot import ask_llm
@@ -290,17 +290,31 @@ def delete_account():
 # WHATSAPP WEBHOOK
 ################################################
 
-@app.route("/webhook/whatsapp", methods=["GET", "POST"])
+@app.route("/webhook/whatsapp", methods=["GET", "POST"], strict_slashes=False)
 def whatsapp_webhook():
     if request.method == "GET":
         mode = request.args.get("hub.mode")
         token = request.args.get("hub.verify_token")
         challenge = request.args.get("hub.challenge")
 
-        if mode == "subscribe" and token == WHATSAPP_VERIFY_TOKEN:
-            # Facebook expectation: return the challenge back as is
-            return challenge, 200
-        return "Forbidden", 403
+        # Logging all incoming validation details exactly
+        print("--- WHATSAPP WEBHOOK VERIFICATION ---")
+        print("MODE =", repr(mode))
+        print("TOKEN =", repr(token))
+        print("ENV TOKEN =", repr(WHATSAPP_VERIFY_TOKEN))
+        print("CHALLENGE =", repr(challenge))
+
+        # Safe parsing and comparison
+        clean_token = token.strip() if token else ""
+        clean_env_token = WHATSAPP_VERIFY_TOKEN.strip() if WHATSAPP_VERIFY_TOKEN else ""
+
+        if mode == "subscribe" and clean_token == clean_env_token:
+            print("Verification Success. Returning challenge.")
+            # Response must be exact challenge, return as plain text
+            return Response(challenge, mimetype="text/plain", status=200)
+
+        print("Verification Failed: Mode or Token mismatch.")
+        return Response("Forbidden", mimetype="text/plain", status=403)
 
     elif request.method == "POST":
         try:
